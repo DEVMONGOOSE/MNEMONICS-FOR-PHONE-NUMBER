@@ -1,0 +1,42 @@
+import java.util.*;
+public class MNEMONICS_PHONE_NUMBER_HASHMAP {
+	public static List<String> mnemonics(String digit){
+		List<String> ans=new ArrayList<String>();
+		if(digit.length()==0)
+			return ans;
+		HashMap<Character,String> hm=new HashMap<Character,String>();
+		hm.put('2',"ABC");
+		hm.put('3',"DEF");
+		hm.put('4',"GHI");
+		hm.put('5',"JKL");
+		hm.put('6',"MNO");
+		hm.put('7',"PQRS");
+		hm.put('8',"TUV");
+		hm.put('9',"WXYZ");
+		backtrack(digit,0,hm,new StringBuilder(),ans);
+		return ans;
+	}
+	public static void backtrack(String digit,int i,HashMap<Character,String> hm,StringBuilder sb,List<String> ans) {
+		if(i==digit.length())
+		{
+			ans.add(sb.toString());
+			return;
+		}
+		String curr=hm.get(digit.charAt(i));
+		for(int k=0;k<curr.length();k++)
+		{
+			sb.append(curr.charAt(k));
+			backtrack(digit,i+1,hm,sb,ans);
+			sb.deleteCharAt(sb.length()-1);
+		}
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		System.out.println("ENTER THE PHONE NUMBER");
+		String str=sc.nextLine();
+		System.out.println("THE POSSIBLE MNEMONICS IS FOR THE GIVEN NUMBER : "+ mnemonics(str));
+sc.close();
+	}
+}
